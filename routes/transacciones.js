@@ -1,4 +1,4 @@
-var express = require('express');
+﻿var express = require('express');
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
@@ -6,7 +6,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/deposito', function (req, res, next) {
-  res.render('deposito', { title: 'Depósito' });
+  res.render('deposito', { title: 'Deposito' });
 });
 
 router.get('/retiro', function (req, res, next) {
