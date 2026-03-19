@@ -6,7 +6,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/deposito', function (req, res, next) {
-  res.render('deposito', { title: 'Deposito' });
+  res.render('deposito', { title: 'Depósito' });
 });
 
 router.get('/retiro', function (req, res, next) {

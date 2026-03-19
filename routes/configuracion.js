@@ -2,11 +2,11 @@
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-  res.render('configuracion', { title: 'Configuracion' });
+  res.render('configuracion', { title: 'Configuración' });
 });
 
 router.get('/rangoscomision', function (req, res, next) {
-  res.render('rangoscomision', { title: 'Rangos Comision' });
+  res.render('rangoscomision', { title: 'Rangos Comisión' });
 });
 
 router.get('/tipodecampo', function (req, res, next) {
