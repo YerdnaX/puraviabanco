@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Pura Vida | Rangos de Comisión</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header>
+    <div class="barra-usuario">
+      <img src="imagenes/logos.png" alt="Banco Pura Vida" class="logo-header">
+      <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header">
+    </div>
+    <nav class="menu-superior">
+      <a href="inicio.html">Inicio</a>
+      <a href="panel.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="cuentas.html">Cuentas</a>
+      <a href="transacciones.html">Transacciones</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <section class="seccion">
+      <h1 class="titulo-seccion">Administrar rangos de comisión</h1>
+      <p class="subtitulo">Estos rangos se aplican automáticamente a los retiros según el monto.</p>
+    </section>
+
+    <section class="seccion">
+      <form class="formulario">
+        <div class="tabla-scroll">
+          <table class="tabla-resumen tabla-editable-rangos">
+            <thead>
+              <tr>
+                <th>Monto mínimo</th>
+                <th>Monto máximo</th>
+                <th>Porcentaje</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="number" step="0.01" min="0" value="0" aria-label="Monto mínimo rango 1"></td>
+                <td><input type="number" step="0.01" min="0" value="100000" aria-label="Monto máximo rango 1"></td>
+                <td><input type="number" step="0.01" min="0" value="1.5" aria-label="Porcentaje rango 1"></td>
+                <td>
+                  <select aria-label="Estado rango 1">
+                    <option selected>Vigente</option>
+                    <option>Inactivo</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="number" step="0.01" min="0" value="100001" aria-label="Monto mínimo rango 2"></td>
+                <td><input type="number" step="0.01" min="0" value="500000" aria-label="Monto máximo rango 2"></td>
+                <td><input type="number" step="0.01" min="0" value="3" aria-label="Porcentaje rango 2"></td>
+                <td>
+                  <select aria-label="Estado rango 2">
+                    <option selected>Vigente</option>
+                    <option>Inactivo</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="number" step="0.01" min="0" value="500001" aria-label="Monto mínimo rango 3"></td>
+                <td><input type="number" step="0.01" min="0" value="2000000" aria-label="Monto máximo rango 3"></td>
+                <td><input type="number" step="0.01" min="0" value="4.5" aria-label="Porcentaje rango 3"></td>
+                <td>
+                  <select aria-label="Estado rango 3">
+                    <option selected>Vigente</option>
+                    <option>Inactivo</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="botones acciones-rangos">
+          <button class="btn" type="submit">Guardar</button>
+          <button class="btn btn-secundario" type="button">Ultimas Rangos</button>
+          <a class="btn btn-secundario" href="configuracion.html">Volver</a>
+        </div>
+
+        <p class="subtitulo">Los rangos no deben superponerse.</p>
+      </form>
+    </section>
+  </main>
+  <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header" style="display:block; margin:0 auto;">
+  <footer> 2026 Banco Pura Vida. Wil Mora :D</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

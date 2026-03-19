@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Pura Vida | Tipo de cambio</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header>
+    <div class="barra-usuario">
+      <img src="imagenes/logos.png" alt="Banco Pura Vida" class="logo-header">
+      <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header">
+    </div>
+    <nav class="menu-superior">
+      <a href="inicio.html">Inicio</a>
+      <a href="panel.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="cuentas.html">Cuentas</a>
+      <a href="transacciones.html">Transacciones</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <section class="seccion">
+      <h1 class="titulo-seccion">Administrar tipo de cambio</h1>
+      <p class="subtitulo">Compra y venta de USD aplicadas a operaciones en dólares.</p>
+    </section>
+
+    <section class="seccion">
+      <table class="tabla-resumen">
+        <thead>
+          <tr>
+            <th>Compra</th>
+            <th>Venta</th>
+            <th>Fecha de modificación</th>
+            <th>Registrado por</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>₡522</td>
+            <td>₡534</td>
+            <td>18/03/2026</td>
+            <td>Admin</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <form class="formulario" style="margin-top:1.2rem;">
+        <div class="grid-formularios">
+          <div class="campo">
+            <label for="compra">Tipo de cambio compra</label>
+            <input id="compra" type="number" step="0.01" min="0" placeholder="Ej. 522">
+          </div>
+          <div class="campo">
+            <label for="venta">Tipo de cambio venta</label>
+            <input id="venta" type="number" step="0.01" min="0" placeholder="Ej. 534">
+          </div>
+          <div class="campo">
+            <label for="fecha-tc">Fecha de modificación</label>
+            <input id="fecha-tc" type="date">
+          </div>
+          <div class="campo">
+            <label for="registrado">Registrado por</label>
+            <input id="registrado" type="text" placeholder="Usuario responsable">
+          </div>
+        </div>
+        <div class="botones">
+          <button class="btn" type="button">Actualizar tipo de cambio</button>
+          <button class="btn btn-secundario" type="reset">Limpiar</button>
+          <a class="btn btn-secundario" href="configuracion.html">Volver</a>
+        </div>
+        <p class="subtitulo">Valores deben ser numéricos positivos.</p>
+      </form>
+    </section>
+  </main>
+  <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header" style="display:block; margin:0 auto;">
+  <footer> 2026 Banco Pura Vida. Wil Mora :D</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

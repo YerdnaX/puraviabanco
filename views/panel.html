@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Pura Vida | Dashboard</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+  <header>
+    <div class="barra-usuario">
+      <img src="imagenes/logos.png" alt="Banco Pura Vida" class="logo-header">
+      <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header">
+    </div>
+    <nav class="menu-superior">
+      <a href="inicio.html">Inicio</a>
+      <a href="panel.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="cuentas.html">Cuentas</a>
+      <a href="transacciones.html">Transacciones</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <section class="seccion">
+      <h1 class="titulo-seccion">Panel de Operaciones</h1>
+      <p class="subtitulo">Visión de clientes, cuentas, transacciones y parámetros bancarios.</p>
+
+      <div class="kpi-grid kpi-grid-panel">
+        <div class="kpi">
+          <div class="etiqueta">Clientes registrados</div>
+          <div class="valor">3 482</div>
+          <div class="estado estado-libre">89 inactivos</div>
+        </div>
+        <div class="kpi">
+          <div class="etiqueta">Cuentas activas</div>
+          <div class="valor">4 910</div>
+          <div class="estado estado-libre">84 % activas</div>
+        </div>
+        <div class="kpi">
+          <div class="etiqueta">Saldo global (CRC)</div>
+          <div class="valor">₡ 18 450 000 000</div>
+          <div class="estado estado-reservada">Incluye USD convertido</div>
+        </div>
+        <div class="kpi">
+          <div class="etiqueta">Movimientos hoy</div>
+          <div class="valor">842</div>
+          <div class="estado estado-libre">Depósitos, retiros y comisiones</div>
+        </div>
+        <div class="kpi kpi-tipo-cambio">
+          <div class="etiqueta">Tipo de cambio</div>
+          <div class="valor">₡522 / ₡534</div>
+          <div class="estado estado-reservada">Actualizado: 18/03/2026</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2 class="titulo-seccion">Accesos rápidos</h2>
+      <div class="grid-tarjetas">
+        <article class="tarjeta tarjeta-linea">
+          <div>
+            <h3>Registro de clientes</h3>
+            <p>Modifica el registro de clientes.</p>
+          </div>
+          <a class="btn" href="clientes.html">Abrir</a>
+        </article>
+        <article class="tarjeta tarjeta-linea">
+          <div>
+            <h3>Administración de cuentas</h3>
+            <p>Modifica y gestiona las cuentas bancarias.</p>
+          </div>
+          <a class="btn" href="cuentas.html">Abrir</a>
+        </article>
+        <article class="tarjeta tarjeta-linea">
+          <div>
+            <h3>Transacciones y historial</h3>
+            <p>Realiza y consulta las transacciones realizadas.</p>
+          </div>
+          <a class="btn" href="transacciones.html">Abrir</a>
+        </article>
+        <article class="tarjeta tarjeta-linea">
+          <div>
+            <h3>Rangos de Comisión</h3>
+            <p>Montos mínimo/máximo y porcentaje aplicado a cada transacción.</p>
+          </div>
+          <a class="btn" href="configuracion.html">Abrir</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <div class="banner">
+        <div>
+          <h2>Seguridad operacional</h2>
+          <p>Clientes y cuentas inactivas no pueden operar. Cada movimiento guarda referencia, tipo de cambio aplicado y
+            saldo final.</p>
+          <div class="chips">
+            <span class="chip">No se eliminan transacciones</span>
+            <span class="chip">Comisión ligada a retiro</span>
+            <span class="chip">Registros confiables</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header" style="display: block; margin: 0 auto;">
+  <footer> 2026 Banco Pura Vida. Wil Mora :D</footer>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Pura Vida | Depósito</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header>
+    <div class="barra-usuario">
+      <img src="imagenes/logos.png" alt="Banco Pura Vida" class="logo-header">
+      <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header">
+    </div>
+    <nav class="menu-superior">
+      <a href="inicio.html">Inicio</a>
+      <a href="panel.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="cuentas.html">Cuentas</a>
+      <a href="transacciones.html">Transacciones</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <section class="seccion">
+      <h1 class="titulo-seccion">Registrar depósito</h1>
+      <p class="subtitulo">Ingresar fondos a una cuenta activa.</p>
+    </section>
+
+    <section class="seccion">
+      <form class="formulario">
+        <div class="grid-formularios">
+          <div class="campo">
+            <label for="cuenta-deposito">Cuenta (cliente o Número)</label>
+            <input id="cuenta-deposito" type="text" placeholder="CR__ ____ ____ ____ ____ o nombre de cliente">
+          </div>
+          <div class="campo">
+            <label for="descripcion-deposito">Descripción</label>
+            <input id="descripcion-deposito" type="text" placeholder="Motivo del depósito">
+          </div>
+          <div class="campo">
+            <label for="fecha-deposito">Fecha de la operación</label>
+            <input id="fecha-deposito" type="date">
+          </div>
+          <div class="campo">
+            <label for="monto-deposito">Monto del depósito</label>
+            <input id="monto-deposito" type="number" step="0.01" min="0.01" placeholder="Debe ser mayor a cero">
+          </div>
+          <div class="campo">
+            <label for="moneda-deposito">Tipo de moneda</label>
+            <select id="moneda-deposito">
+              <option>CRC</option>
+              <option>USD</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="tc-deposito">Tipo de cambio aplicado</label>
+            <input id="tc-deposito" type="text" placeholder="Compra/Venta vigente (auto)">
+          </div>
+        </div>
+        <div class="botones">
+          <button class="btn" type="button">Registrar depósito</button>
+          <button class="btn btn-secundario" type="reset">Limpiar</button>
+          <a class="btn btn-secundario" href="transacciones.html">Volver</a>
+        </div>
+        <p class="subtitulo" style="margin-top:1rem;">Solo se permite si cliente y cuenta están activos.</p>
+      </form>
+    </section>
+  </main>
+  <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header" style="display:block; margin:0 auto;">
+  <footer> 2026 Banco Pura Vida. Wil Mora :D</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Pura Vida | Retiro</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header>
+    <div class="barra-usuario">
+      <img src="imagenes/logos.png" alt="Banco Pura Vida" class="logo-header">
+      <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header">
+    </div>
+    <nav class="menu-superior">
+      <a href="inicio.html">Inicio</a>
+      <a href="panel.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="cuentas.html">Cuentas</a>
+      <a href="transacciones.html">Transacciones</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <section class="seccion">
+      <h1 class="titulo-seccion">Registrar retiro</h1>
+      <p class="subtitulo">Descuento de fondos con verificación de saldo y cálculo de comisión automática.</p>
+    </section>
+
+    <section class="seccion">
+      <div class="grid-formularios">
+        <form class="formulario">
+          <h3>Retiro</h3>
+          <div class="campo">
+            <label for="cuenta-retiro">Cuenta (cliente o Número)</label>
+            <input id="cuenta-retiro" type="text" placeholder="CR__ ____ ____ ____ ____">
+          </div>
+          <div class="campo">
+            <label for="descripcion-retiro">Descripción</label>
+            <input id="descripcion-retiro" type="text" placeholder="Motivo del retiro">
+          </div>
+          <div class="campo">
+            <label for="fecha-retiro">Fecha</label>
+            <input id="fecha-retiro" type="date">
+          </div>
+          <div class="campo">
+            <label for="monto-retiro">Monto</label>
+            <input id="monto-retiro" type="number" step="0.01" min="0.01" placeholder="Validar saldo suficiente">
+          </div>
+          <div class="campo">
+            <label for="moneda-retiro">Tipo de moneda</label>
+            <select id="moneda-retiro">
+              <option>CRC</option>
+              <option>USD</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="tc-retiro">Tipo de cambio</label>
+            <input id="tc-retiro" type="text" placeholder="Compra/Venta vigente (auto)">
+          </div>
+          <div class="botones">
+            <button class="btn" type="button">Registrar retiro</button>
+            <button class="btn btn-secundario" type="reset">Limpiar</button>
+            <a class="btn btn-secundario" href="transacciones.html">Volver</a>
+          </div>
+          <p class="subtitulo">El sistema verifica saldo antes de permitir el retiro.</p>
+        </form>
+
+        <div class="factura">
+          <h3>Cálculo de comisión</h3>
+          <div class="fila-resumen">
+            <span>Rango aplicado</span><span>₡ 100 000 - ₡ 500 000</span>
+          </div>
+          <div class="fila-resumen">
+            <span>Porcentaje</span><span>3 %</span>
+          </div>
+          <div class="fila-resumen">
+            <span>Comisión calculada</span><span>₡ 7 500</span>
+          </div>
+          <div class="fila-resumen">
+            <span>Saldo tras retiro</span><span>₡ 1 232 500</span>
+          </div>
+          <p>La comisión se registra automáticamente como transacción ligada al retiro.</p>
+          <div class="campo">
+            <label>Comisión calculada</label>
+            <div class="pill">₡ 7 500</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2 class="titulo-seccion">Resumen del retiro realizado</h2>
+      <div class="lista-simple" style="max-width:720px; margin:0 auto;">
+        <li><strong>ID transacción:</strong> TRX-87433</li>
+        <li><strong>Cuenta:</strong> CR23 9876 5432 1098 7654</li>
+        <li><strong>Monto retiro:</strong> $400 (USD)</li>
+        <li><strong>Comisión aplicada:</strong> $12</li>
+        <li><strong>Saldo final:</strong> $7 788</li>
+        <li><strong>Fecha:</strong> 18/03/2026</li>
+      </div>
+    </section>
+  </main>
+  <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header" style="display:block; margin:0 auto;">
+  <footer> 2026 Banco Pura Vida. Wil Mora :D</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

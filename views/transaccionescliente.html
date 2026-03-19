@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Pura Vida | Transacciones por cliente</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header>
+    <div class="barra-usuario">
+      <img src="imagenes/logos.png" alt="Banco Pura Vida" class="logo-header">
+      <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header">
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <section class="seccion">
+      <h1 class="titulo-seccion">Transacciones del cliente</h1>
+      <p class="subtitulo">Consulta depósitos, retiros y comisiones asociados al cliente seleccionado.</p>
+
+      <div class="kpi-grid" style="margin-bottom:1.2rem;">
+        <div class="kpi">
+          <div class="etiqueta">Cliente</div>
+          <div class="valor">Laura Fernández Rojas</div>
+          <div class="estado estado-libre">ID: 1-0456-1234</div>
+        </div>
+        <div class="kpi">
+          <div class="etiqueta">Cuentas activas</div>
+          <div class="valor">3</div>
+          <div class="estado estado-libre">CRC  USD</div>
+        </div>
+        <div class="kpi">
+          <div class="etiqueta">Saldo agregado</div>
+          <div class="valor">₡ 2 120 000</div>
+          <div class="estado estado-reservada">Incluye conversión de USD</div>
+        </div>
+      </div>
+
+      <table class="tabla-resumen">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Cuenta</th>
+            <th>Monto</th>
+            <th>Moneda</th>
+            <th>Tipo de cambio</th>
+            <th>Saldo final</th>
+            <th>Referencia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TRX-87432</td>
+            <td>18/03/2026</td>
+            <td>Depósito</td>
+            <td>Nómina marzo</td>
+            <td>CR05 0123 0000 4567 8901</td>
+            <td>₡ 250 000</td>
+            <td>CRC</td>
+            <td>"</td>
+            <td>₡ 1 540 000</td>
+            <td>"</td>
+          </tr>
+          <tr>
+            <td>TRX-87433</td>
+            <td>17/03/2026</td>
+            <td>Retiro</td>
+            <td>Pago renta</td>
+            <td>CR05 0123 0000 4567 8901</td>
+            <td>₡ 120 000</td>
+            <td>CRC</td>
+            <td>"</td>
+            <td>₡ 1 290 000</td>
+            <td>COM-87433</td>
+          </tr>
+          <tr>
+            <td>COM-87433</td>
+            <td>17/03/2026</td>
+            <td>Comisión</td>
+            <td>3 % sobre retiro</td>
+            <td>CR05 0123 0000 4567 8901</td>
+            <td>₡ 3 600</td>
+            <td>CRC</td>
+            <td>"</td>
+            <td>₡ 1 286 400</td>
+            <td>Ref TRX-87433</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="botones" style="margin-top:1.2rem;">
+        <a class="btn btn-secundario" href="clientes.html">Volver a clientes</a>
+      </div>
+    </section>
+  </main>
+  <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header" style="display:block; margin:0 auto;">
+  <footer> 2026 Banco Pura Vida. Wil Mora :D</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Pura Vida | Configuración</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header>
+    <div class="barra-usuario">
+      <img src="imagenes/logos.png" alt="Banco Pura Vida" class="logo-header">
+      <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header">
+    </div>
+    <nav class="menu-superior">
+      <a href="inicio.html">Inicio</a>
+      <a href="panel.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="cuentas.html">Cuentas</a>
+      <a href="transacciones.html">Transacciones</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <section class="seccion">
+      <h1 class="titulo-seccion">Parámetros del sistema</h1>
+      <p class="subtitulo">Rangos de comisión y tipo de cambio que afectan a cada retiro y transacción en USD.</p>
+    </section>
+
+    <section class="seccion">
+      <h2 class="titulo-seccion">Resumen de Configuración</h2>
+      <div class="kpi-grid" style="margin-bottom:1.2rem;">
+        <div class="kpi">
+          <div class="etiqueta">Tipo de cambio</div>
+          <div class="valor">₡522 / ₡534</div>
+          <div class="estado estado-reservada">Actualizado: 18/03/2026</div>
+        </div>
+        <div class="kpi kpi-rangos">
+          <div class="etiqueta">Rangos de comisión</div>
+          <ul class="kpi-rangos-lista" aria-label="Resumen de rangos de comisión">
+            <li class="kpi-rango-item">
+              <span class="rango-nombre">Rango 1</span>
+              <span class="rango-monto">₡ 0 - ₡ 100 000</span>
+              <span class="estado estado-libre">1.5 %</span>
+            </li>
+            <li class="kpi-rango-item">
+              <span class="rango-nombre">Rango 2</span>
+              <span class="rango-monto">₡ 100 001 - ₡ 500 000</span>
+              <span class="estado estado-libre">3 %</span>
+            </li>
+            <li class="kpi-rango-item">
+              <span class="rango-nombre">Rango 3</span>
+              <span class="rango-monto">₡ 500 001 - ₡ 2 000 000</span>
+              <span class="estado estado-libre">4.5 %</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion" style="padding-top:0;">
+      <div class="grid-tarjetas">
+        <article class="tarjeta">
+          <h3>Rangos de Comisión</h3>
+          <p>Configura montos mínimos/máximos y porcentaje aplicado a retiros.</p>
+          <a class="btn" href="rangoscomision.html">Ir a rangos</a>
+        </article>
+        <article class="tarjeta">
+          <h3>Tipo de cambio</h3>
+          <p>Actualiza compra y venta del USD. Se usa en operaciones en dólares.</p>
+          <a class="btn" href="tipodecampo.html">Ir a tipo de cambio</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header" style="display:block; margin:0 auto;">
+  <footer> 2026 Banco Pura Vida. Wil Mora :D</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

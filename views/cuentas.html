@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Pura Vida | Cuentas</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+  <header>
+    <div class="barra-usuario">
+      <img src="imagenes/logos.png" alt="Banco Pura Vida" class="logo-header">
+      <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header">
+    </div>
+    <nav class="menu-superior">
+      <a href="inicio.html">Inicio</a>
+      <a href="panel.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="cuentas.html">Cuentas</a>
+      <a href="transacciones.html">Transacciones</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <section class="seccion">
+      <h1 class="titulo-seccion">Administración de cuentas bancarias</h1>
+    </section>
+
+    <section class="seccion">
+      <h2 class="titulo-seccion">Cuentas registradas</h2>
+      <div class="tabla-center">
+      <table class="tabla-resumen">
+        <thead>
+        <tr>
+          <th>Número de cuenta (IBAN)</th>
+          <th>Alias</th>
+          <th>Moneda</th>
+          <th>Saldo actual</th>
+          <th>Cliente</th>
+          <th>Creada</th>
+          <th>Estado</th>
+          <th>Transacciones</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CR05 0123 0000 4567 8901</td>
+            <td>Ahorros casa</td>
+            <td>CRC</td>
+          <td>₡ 1 540 000</td>
+          <td>Laura Fernández</td>
+          <td>18/03/2026</td>
+          <td><span class="estado estado-libre">Activa</span></td>
+          <td>
+            <a class="btn btn-secundario btn-icon" href="transaccionescuenta.html?iban=CR050123000045678901" aria-label="Ver transacciones">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="6"></circle>
+                <path d="M16 16l4 4"></path>
+              </svg>
+            </a>
+          </td>
+          <td>
+            <button class="btn btn-secundario btn-icon" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h16"></path>
+                <path d="M9 4h6"></path>
+                <path d="M10 10v7"></path>
+                <path d="M14 10v7"></path>
+                <rect x="5" y="7" width="14" height="13" rx="2"></rect>
+              </svg>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>CR23 9876 5432 1098 7654</td>
+          <td>Ahorro en USD</td>
+          <td>USD</td>
+          <td>$ 8 200</td>
+          <td>Wei Zhang</td>
+          <td>15/03/2026</td>
+          <td><span class="estado estado-reservada">Inactiva</span></td>
+          <td>
+            <a class="btn btn-secundario btn-icon" href="transaccionescuenta.html?iban=CR239876543210987654" aria-label="Ver transacciones">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="6"></circle>
+                <path d="M16 16l4 4"></path>
+              </svg>
+            </a>
+          </td>
+          <td>
+            <button class="btn btn-secundario btn-icon" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h16"></path>
+                <path d="M9 4h6"></path>
+                <path d="M10 10v7"></path>
+                <path d="M14 10v7"></path>
+                <rect x="5" y="7" width="14" height="13" rx="2"></rect>
+              </svg>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>CR11 5500 1020 3040 5060</td>
+          <td>Cuenta viajes</td>
+          <td>CRC</td>
+          <td>₡ 280 000</td>
+          <td>Sofía Morales</td>
+          <td>10/03/2026</td>
+          <td><span class="estado estado-libre">Activa</span></td>
+          <td>
+            <a class="btn btn-secundario btn-icon" href="transaccionescuenta.html?iban=CR115500102030405060" aria-label="Ver transacciones">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="6"></circle>
+                <path d="M16 16l4 4"></path>
+              </svg>
+            </a>
+          </td>
+          <td>
+            <button class="btn btn-secundario btn-icon" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h16"></path>
+                <path d="M9 4h6"></path>
+                <path d="M10 10v7"></path>
+                <path d="M14 10v7"></path>
+                <rect x="5" y="7" width="14" height="13" rx="2"></rect>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+    <section class="seccion">
+      <h2 class="titulo-seccion">Crear o modificar cuenta</h2>
+      <form class="formulario">
+        <div class="grid-formularios">
+          <div class="campo">
+            <label for="iban">Número de cuenta (IBAN)</label>
+            <input id="iban" type="text" placeholder="CR__ ____ ____ ____ ____"
+              pattern="^[A-Z]{2}\\d{2}[A-Z0-9]{4}\\d{7}([A-Z0-9]-){0,16}$"
+              title="Formato: país + 2 dígitos + hasta 30 alfanuméricos">
+          </div>
+          <div class="campo">
+            <label for="alias">Alias de la cuenta</label>
+            <input id="alias" type="text" placeholder="Ej. Ahorros casa">
+          </div>
+          <div class="campo">
+            <label for="moneda">Tipo de moneda</label>
+            <select id="moneda">
+              <option>CRC</option>
+              <option>USD</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="saldo">Saldo actual</label>
+            <input id="saldo" type="number" step="0.01" placeholder="0.00">
+          </div>
+          <div class="campo">
+            <label for="cliente">Cliente propietario</label>
+            <input id="cliente" type="text" placeholder="Nombre o identificador">
+          </div>
+          <div class="campo">
+            <label for="fecha-creacion">Fecha de creación</label>
+            <input id="fecha-creacion" type="date">
+          </div>
+          <div class="campo">
+            <label for="estado-cuenta">Estado de la cuenta</label>
+            <select id="estado-cuenta">
+              <option>Activa</option>
+              <option>Inactiva</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="botones">
+          <button class="btn" type="button">Guardar / Actualizar</button>
+          <button class="btn btn-secundario" type="reset">Limpiar</button>
+        </div>
+        </p>
+      </form>
+    </section>
+  </main>
+  <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header" style="display: block; margin: 0 auto;">
+  <footer> 2026 Banco Pura Vida. Wil Mora :D</footer>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

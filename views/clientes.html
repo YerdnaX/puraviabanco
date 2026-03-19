@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Pura Vida | Clientes</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+  <header>
+    <div class="barra-usuario">
+      <img src="imagenes/logos.png" alt="Banco Pura Vida" class="logo-header">
+      <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header">
+    </div>
+    <nav class="menu-superior">
+      <a href="inicio.html">Inicio</a>
+      <a href="panel.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="cuentas.html">Cuentas</a>
+      <a href="transacciones.html">Transacciones</a>
+      <a href="configuracion.html">Configuración</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <section class="seccion">
+      <h1 class="titulo-seccion">Registro de clientes</h1>
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="etiqueta">Clientes activos</div>
+          <div class="valor">3 482</div>
+          <div class="estado estado-libre">+12 hoy</div>
+        </div>
+        <div class="kpi">
+          <div class="etiqueta">Clientes inactivos</div>
+          <div class="valor">89</div>
+          <div class="estado estado-reservada">Sin operaciones permitidas</div>
+        </div>
+        <div class="kpi">
+          <div class="etiqueta">Última alta</div>
+          <div class="valor">18/03/2026</div>
+          <div class="estado estado-libre">10:34 a.m.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2 class="titulo-seccion">Lista de clientes</h2>
+      <div class="tabla-center">
+        <table class="tabla-resumen">
+          <thead>
+            <tr>
+              <th>Identificador</th>
+              <th>Nombre completo</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th>F. nacimiento</th>
+              <th>Ocupación</th>
+              <th>Dirección</th>
+              <th>Creado</th>
+              <th>Estado</th>
+              <th>Transacciones</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1-0456-1234</td>
+              <td>Laura Fernández Rojas</td>
+              <td>laura.fernandez@bpv.cr</td>
+              <td class="nowrap">8888-1200</td>
+              <td>12/04/1992</td>
+              <td>Arquitecta</td>
+              <td>San José, Montes de Oca</td>
+              <td>18/03/26</td>
+              <td><span class="estado estado-libre">Activo</span></td>
+              <td>
+                <a class="btn btn-secundario btn-icon" href="transaccionescliente.html?id=1-0456-1234"
+                  aria-label="Ver transacciones">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6"></circle>
+                    <path d="M16 16l4 4"></path>
+                  </svg>
+                </a>
+              </td>
+              <td>
+                <button class="btn btn-secundario btn-icon" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7h16"></path>
+                    <path d="M9 4h6"></path>
+                    <path d="M10 10v7"></path>
+                    <path d="M14 10v7"></path>
+                    <rect x="5" y="7" width="14" height="13" rx="2"></rect>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>800123456789</td>
+              <td>Wei Zhang</td>
+              <td>w.zhang@bpv.cr</td>
+              <td class="nowrap">7090-4433</td>
+              <td>05/09/1985</td>
+              <td>Profesor</td>
+              <td>Heredia, Santo Domingo</td>
+              <td>15/03/26</td>
+              <td><span class="estado estado-reservada">Inactivo</span></td>
+              <td>
+                <a class="btn btn-secundario btn-icon" href="transaccionescliente.html?id=800123456789"
+                  aria-label="Ver transacciones">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6"></circle>
+                    <path d="M16 16l4 4"></path>
+                  </svg>
+                </a>
+              </td>
+              <td>
+                <button class="btn btn-secundario btn-icon" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7h16"></path>
+                    <path d="M9 4h6"></path>
+                    <path d="M10 10v7"></path>
+                    <path d="M14 10v7"></path>
+                    <rect x="5" y="7" width="14" height="13" rx="2"></rect>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>P-99332211</td>
+              <td>Sofía Morales</td>
+              <td>sofia.m@bpv.cr</td>
+              <td class="nowrap">8630-2209</td>
+              <td>22/01/1998</td>
+              <td>Diseñadora UX</td>
+              <td>Cartago, Paraíso</td>
+              <td>10/03/26</td>
+              <td><span class="estado estado-libre">Activo</span></td>
+              <td>
+                <a class="btn btn-secundario btn-icon" href="transaccionescliente.html?id=P-99332211"
+                  aria-label="Ver transacciones">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6"></circle>
+                    <path d="M16 16l4 4"></path>
+                  </svg>
+                </a>
+              </td>
+              <td>
+                <button class="btn btn-secundario btn-icon" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7h16"></path>
+                    <path d="M9 4h6"></path>
+                    <path d="M10 10v7"></path>
+                    <path d="M14 10v7"></path>
+                    <rect x="5" y="7" width="14" height="13" rx="2"></rect>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <h2 class="titulo-seccion">Crear o modificar cliente</h2>
+      <form class="formulario">
+        <div class="grid-formularios">
+          <div class="campo">
+            <label for="id-cliente">Identificador (cédula, extranjero o pasaporte)</label>
+            <input id="id-cliente" type="text" placeholder="Ej. 1-0456-1234 / P-99332211">
+          </div>
+          <div class="campo">
+            <label for="nombre">Nombre completo</label>
+            <input id="nombre" type="text" placeholder="Nombre y apellidos">
+          </div>
+          <div class="campo">
+            <label for="correo">Correo electrónico</label>
+            <input id="correo" type="email" placeholder="correo@ejemplo.com">
+          </div>
+          <div class="campo">
+            <label for="telefono">Número de teléfono</label>
+            <input id="telefono" type="tel" placeholder="8888-8888">
+          </div>
+          <div class="campo">
+            <label for="fecha-nacimiento">Fecha de nacimiento</label>
+            <input id="fecha-nacimiento" type="date">
+          </div>
+        </div>
+
+        <div class="grid-formularios">
+          <div class="campo">
+            <label for="direccion">Dirección</label>
+            <textarea id="direccion" placeholder="Provincia, cantón, distrito"></textarea>
+          </div>
+          <div class="campo">
+            <label for="ocupacion">Ocupación</label>
+            <input id="ocupacion" type="text" placeholder="Profesión u oficio">
+          </div>
+          <div class="campo">
+            <label for="fecha-creacion">Fecha de creación</label>
+            <input id="fecha-creacion" type="date">
+          </div>
+          <div class="campo">
+            <label for="estado">Estado del cliente</label>
+            <select id="estado">
+              <option>Activo</option>
+              <option>Inactivo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="botones">
+          <button class="btn" type="button">Guardar / Actualizar</button>
+          <button class="btn btn-secundario" type="reset">Limpiar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <img src="imagenes/logos2.png" alt="Banco Pura Vida" class="logo-header" style="display: block; margin: 0 auto;">
+  <footer> 2026 Banco Pura Vida. Wil Mora :D</footer>
+</body>
+</html>
