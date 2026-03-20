@@ -16,10 +16,6 @@
             <input id="descripcion-deposito" type="text" placeholder="Motivo del depósito">
           </div>
           <div class="campo">
-            <label for="fecha-deposito">Fecha de la operación</label>
-            <input id="fecha-deposito" type="date">
-          </div>
-          <div class="campo">
             <label for="monto-deposito">Monto del depósito</label>
             <input id="monto-deposito" type="number" step="0.01" min="0.01" placeholder="Debe ser mayor a cero">
           </div>
@@ -30,18 +26,47 @@
               <option>USD</option>
             </select>
           </div>
-          <div class="campo">
-            <label for="tc-deposito">Tipo de cambio aplicado</label>
-            <input id="tc-deposito" type="text" placeholder="Compra/Venta vigente (auto)">
-          </div>
         </div>
         <div class="botones">
-          <button class="btn" type="button">Registrar depósito</button>
+          <button class="btn" id="btn-registrar-deposito" type="button">Registrar depósito</button>
           <button class="btn btn-secundario" type="reset">Limpiar</button>
           <a class="btn btn-secundario" href="/transacciones">Volver</a>
         </div>
         <p class="subtitulo" style="margin-top:1rem;">Solo se permite si cliente y cuenta están activos.</p>
       </form>
     </section>
+
+    <section class="seccion" id="resultado-deposito" style="display:none;">
+      <h2 class="titulo-seccion">Resumen del depósito realizado</h2>
+      <div class="tabla-center">
+        <table class="tabla-resumen">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Cuenta (IBAN)</th>
+              <th>Descripción</th>
+              <th>Fecha</th>
+              <th>Monto ingresado</th>
+              <th>Monto acreditado</th>
+              <th>Saldo final</th>
+              <th>Tipo de cambio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="res-codigo"></td>
+              <td id="res-iban" class="nowrap"></td>
+              <td id="res-descripcion"></td>
+              <td id="res-fecha"></td>
+              <td id="res-monto-ingresado"></td>
+              <td id="res-monto-acreditado"></td>
+              <td id="res-saldo-final"></td>
+              <td id="res-tipo-cambio"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
+  <script src="/javascripts/transacciones-logica.js"></script>
 

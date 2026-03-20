@@ -58,10 +58,6 @@ function formatearTipoTransaccion(tipo) {
 }
 
 function formatearTipoCambio(moneda, tipoCompra, tipoVenta) {
-  if (moneda !== 'USD') {
-    return '—';
-  }
-
   var compra = Number(tipoCompra || 0);
   var venta = Number(tipoVenta || 0);
 

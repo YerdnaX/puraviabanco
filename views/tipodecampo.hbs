@@ -12,15 +12,25 @@
             <th>Venta</th>
             <th>Fecha de modificación</th>
             <th>Registrado por</th>
+            <th>Estado</th>
           </tr>
         </thead>
         <tbody>
+          {{#if tiposCambioLista.length}}
+          {{#each tiposCambioLista}}
           <tr>
-            <td>₡522</td>
-            <td>₡534</td>
-            <td>18/03/2026</td>
-            <td>Admin</td>
+            <td>{{this.tipoCambioCompraTexto}}</td>
+            <td>{{this.tipoCambioVentaTexto}}</td>
+            <td>{{this.fechaModificacionTexto}}</td>
+            <td>{{this.registradoPorTexto}}</td>
+            <td><span class="estado {{this.estadoClase}}">{{this.estadoTexto}}</span></td>
           </tr>
+          {{/each}}
+          {{else}}
+          <tr>
+            <td colspan="5">No hay tipos de cambio registrados.</td>
+          </tr>
+          {{/if}}
         </tbody>
       </table>
 
@@ -35,16 +45,12 @@
             <input id="venta" type="number" step="0.01" min="0" placeholder="Ej. 534">
           </div>
           <div class="campo">
-            <label for="fecha-tc">Fecha de modificación</label>
-            <input id="fecha-tc" type="date">
-          </div>
-          <div class="campo">
             <label for="registrado">Registrado por</label>
             <input id="registrado" type="text" placeholder="Usuario responsable">
           </div>
         </div>
         <div class="botones">
-          <button class="btn" type="button">Actualizar tipo de cambio</button>
+          <button class="btn" id="btn-actualizar-tipo-cambio" type="button">Actualizar tipo de cambio</button>
           <button class="btn btn-secundario" type="reset">Limpiar</button>
           <a class="btn btn-secundario" href="/configuracion">Volver</a>
         </div>
@@ -52,4 +58,5 @@
       </form>
     </section>
   </main>
+  <script src="/javascripts/configuracion-logica.js"></script>
 

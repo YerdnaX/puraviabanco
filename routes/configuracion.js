@@ -62,7 +62,7 @@ router.get('/', async function (req, res, next) {
     }));
 
     res.render('configuracion', {
-      title: 'Configuración',
+      title: 'Configuraciï¿½n',
       tipoCambioTexto:
         tipoCambioCompra > 0 || tipoCambioVenta > 0
           ? `CRC ${formatearTipoCambio(tipoCambioCompra)} / CRC ${formatearTipoCambio(tipoCambioVenta)}`
@@ -78,11 +78,66 @@ router.get('/', async function (req, res, next) {
 });
 
 router.get('/rangoscomision', function (req, res, next) {
-  res.render('rangoscomision', { title: 'Rangos Comisión' });
+  res.render('rangoscomision', { title: 'Rangos Comisiï¿½n' });
 });
 
 router.get('/tipodecampo', function (req, res, next) {
-  res.render('tipodecampo', { title: 'Tipo de Cambio' });
+  (async function () {
+    try {
+      const pool = await database.poolPromise;
+      const tipoCambioResult = await pool.request().query(`
+        SELECT
+          tipo_cambio_compra,
+          tipo_cambio_venta,
+          fecha_modificacion,
+          registrado_por,
+          activo
+        FROM dbo.TIPO_CAMBIO
+        WHERE moneda_origen = 'USD'
+          AND moneda_destino = 'CRC'
+        ORDER BY fecha_modificacion DESC, id_tipo_cambio DESC;
+      `);
+
+      const formatearTipoCambio = valor =>
+        'â‚¡' + new Intl.NumberFormat('es-CR', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 4
+        }).format(Number(valor || 0));
+
+      const formatearFecha = fecha => {
+        if (!fecha) {
+          return 'N/D';
+        }
+
+        return new Intl.DateTimeFormat('es-CR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          timeZone: 'America/Costa_Rica'
+        }).format(new Date(fecha));
+      };
+
+      const tiposCambioLista = (tipoCambioResult.recordset || []).map(tipoCambio => ({
+        tipoCambioCompraTexto: Number(tipoCambio.tipo_cambio_compra || 0) > 0
+          ? formatearTipoCambio(tipoCambio.tipo_cambio_compra)
+          : 'N/D',
+        tipoCambioVentaTexto: Number(tipoCambio.tipo_cambio_venta || 0) > 0
+          ? formatearTipoCambio(tipoCambio.tipo_cambio_venta)
+          : 'N/D',
+        fechaModificacionTexto: formatearFecha(tipoCambio.fecha_modificacion),
+        registradoPorTexto: tipoCambio.registrado_por || 'N/D',
+        estadoTexto: Number(tipoCambio.activo || 0) === 1 ? 'Activo' : 'Inactivo',
+        estadoClase: Number(tipoCambio.activo || 0) === 1 ? 'estado-libre' : 'estado-reservada'
+      }));
+
+      res.render('tipodecampo', {
+        title: 'Tipo de Cambio',
+        tiposCambioLista
+      });
+    } catch (error) {
+      next(error);
+    }
+  })();
 });
 
 module.exports = router;
