@@ -6,28 +6,28 @@
       <div class="kpi-grid kpi-grid-panel">
         <div class="kpi">
           <div class="etiqueta">Clientes registrados</div>
-          <div class="valor">3 482</div>
-          <div class="estado estado-libre">89 inactivos</div>
+          <div class="valor">{{clientesRegistrados}}</div>
+          <div class="estado estado-libre">{{clientesInactivosTexto}}</div>
         </div>
         <div class="kpi">
           <div class="etiqueta">Cuentas activas</div>
-          <div class="valor">4 910</div>
-          <div class="estado estado-libre">84 % activas</div>
+          <div class="valor">{{cuentasActivas}}</div>
+          <div class="estado estado-libre">{{cuentasActivasPorcentajeTexto}}</div>
         </div>
         <div class="kpi">
           <div class="etiqueta">Saldo global (CRC)</div>
-          <div class="valor">₡ 18 450 000 000</div>
+          <div class="valor">{{saldoGlobalCRC}}</div>
           <div class="estado estado-reservada">Incluye USD convertido</div>
         </div>
         <div class="kpi">
           <div class="etiqueta">Movimientos hoy</div>
-          <div class="valor">842</div>
+          <div class="valor">{{movimientosHoy}}</div>
           <div class="estado estado-libre">Depósitos, retiros y comisiones</div>
         </div>
         <div class="kpi kpi-tipo-cambio">
           <div class="etiqueta">Tipo de cambio</div>
-          <div class="valor">₡522 / ₡534</div>
-          <div class="estado estado-reservada">Actualizado: 18/03/2026</div>
+          <div class="valor">{{tipoCambioTexto}}</div>
+          <div class="estado estado-reservada">{{tipoCambioActualizadoTexto}}</div>
         </div>
       </div>
     </section>
