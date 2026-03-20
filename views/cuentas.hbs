@@ -1,6 +1,23 @@
 ﻿<main class="contenedor">
     <section class="seccion">
       <h1 class="titulo-seccion">Administración de cuentas bancarias</h1>
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="etiqueta">Cuentas activas</div>
+          <div class="valor">{{cuentasActivas}}</div>
+          <div class="estado estado-libre">Con estado Activa</div>
+        </div>
+        <div class="kpi">
+          <div class="etiqueta">Cuentas inactivas</div>
+          <div class="valor">{{cuentasInactivas}}</div>
+          <div class="estado estado-reservada">Sin operaciones permitidas</div>
+        </div>
+        <div class="kpi">
+          <div class="etiqueta">Última alta</div>
+          <div class="valor">{{ultimaAltaFecha}}</div>
+          <div class="estado estado-libre">{{ultimaAltaHora}}</div>
+        </div>
+      </div>
     </section>
 
     <section class="seccion">

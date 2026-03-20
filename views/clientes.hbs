@@ -4,18 +4,18 @@
       <div class="kpi-grid">
         <div class="kpi">
           <div class="etiqueta">Clientes activos</div>
-          <div class="valor">3 482</div>
-          <div class="estado estado-libre">+12 hoy</div>
+          <div class="valor">{{clientesActivos}}</div>
+          <div class="estado estado-libre">Con estado Activo</div>
         </div>
         <div class="kpi">
           <div class="etiqueta">Clientes inactivos</div>
-          <div class="valor">89</div>
+          <div class="valor">{{clientesInactivos}}</div>
           <div class="estado estado-reservada">Sin operaciones permitidas</div>
         </div>
         <div class="kpi">
           <div class="etiqueta">Última alta</div>
-          <div class="valor">18/03/2026</div>
-          <div class="estado estado-libre">10:34 a.m.</div>
+          <div class="valor">{{ultimaAltaFecha}}</div>
+          <div class="estado estado-libre">{{ultimaAltaHora}}</div>
         </div>
       </div>
     </section>
