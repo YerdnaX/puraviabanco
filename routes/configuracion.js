@@ -78,7 +78,64 @@ router.get('/', async function (req, res, next) {
 });
 
 router.get('/rangoscomision', function (req, res, next) {
-  res.render('rangoscomision', { title: 'Rangos Comisi�n' });
+  (async function () {
+    try {
+      const pool = await database.poolPromise;
+      const rangosResult = await pool.request().query(`
+        SELECT
+          id_rango_comision,
+          monto_minimo,
+          monto_maximo,
+          porcentaje_comision,
+          fecha_modificacion,
+          activo
+        FROM dbo.RANGO_COMISION_RETIRO
+        ORDER BY fecha_modificacion DESC, id_rango_comision DESC;
+      `);
+
+      const formatearMonto = valor =>
+        '₡' + new Intl.NumberFormat('es-CR', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        }).format(Number(valor || 0));
+
+      const formatearPorcentaje = valor =>
+        new Intl.NumberFormat('es-CR', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        }).format(Number(valor || 0)) + ' %';
+
+      const formatearFecha = fecha => {
+        if (!fecha) {
+          return 'N/D';
+        }
+
+        return new Intl.DateTimeFormat('es-CR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          timeZone: 'America/Costa_Rica'
+        }).format(new Date(fecha));
+      };
+
+      const historialRangos = (rangosResult.recordset || []).map(rango => ({
+        id: rango.id_rango_comision,
+        montoMinimoTexto: formatearMonto(rango.monto_minimo),
+        montoMaximoTexto: formatearMonto(rango.monto_maximo),
+        porcentajeTexto: formatearPorcentaje(rango.porcentaje_comision),
+        fechaTexto: formatearFecha(rango.fecha_modificacion),
+        estadoTexto: Number(rango.activo || 0) === 1 ? 'Activo' : 'Inactivo',
+        estadoClase: Number(rango.activo || 0) === 1 ? 'estado-libre' : 'estado-reservada'
+      }));
+
+      res.render('rangoscomision', {
+            title: 'Rangos Comision',
+        historialRangos
+      });
+    } catch (error) {
+      next(error);
+    }
+  })();
 });
 
 router.get('/tipodecampo', function (req, res, next) {

@@ -110,6 +110,165 @@ router.post('/configuracion/tipo-cambio', async function (req, res) {
   }
 });
 
+router.get('/configuracion/rangos-comision', async function (req, res) {
+  try {
+    const pool = await database.poolPromise;
+    const result = await pool.request().query(`
+      SELECT
+        id_rango_comision,
+        monto_minimo,
+        monto_maximo,
+        porcentaje_comision,
+        fecha_modificacion,
+        activo
+      FROM dbo.RANGO_COMISION_RETIRO
+      WHERE activo = 1
+      ORDER BY monto_minimo ASC, id_rango_comision ASC;
+    `);
+
+    return res.json({
+      ok: true,
+      data: result.recordset || []
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      reason: 'INTERNAL_ERROR',
+      message: 'Ocurrió un error consultando los rangos de comisión.'
+    });
+  }
+});
+
+router.post('/configuracion/rangos-comision', async function (req, res) {
+  try {
+    const pool = await database.poolPromise;
+    const rangos = Array.isArray(req.body.rangos) ? req.body.rangos : [];
+
+    if (rangos.length !== 3) {
+      return res.status(400).json({
+        ok: false,
+        reason: 'INVALID_RANGES',
+        message: 'Debe enviar exactamente 3 rangos de comisión.'
+      });
+    }
+
+    const rangosNormalizados = rangos.map(function (rango) {
+      return {
+        montoMinimo: Number(rango.montoMinimo),
+        montoMaximo: Number(rango.montoMaximo),
+        porcentajeComision: Number(rango.porcentajeComision)
+      };
+    });
+
+    for (var i = 0; i < rangosNormalizados.length; i += 1) {
+      var rangoActual = rangosNormalizados[i];
+
+      if (
+        !Number.isFinite(rangoActual.montoMinimo) ||
+        !Number.isFinite(rangoActual.montoMaximo) ||
+        !Number.isFinite(rangoActual.porcentajeComision)
+      ) {
+        return res.status(400).json({
+          ok: false,
+          reason: 'INVALID_RANGE_VALUES',
+          message: 'Todos los valores de rango deben ser numéricos.'
+        });
+      }
+
+      if (!Number.isInteger(rangoActual.montoMinimo) || !Number.isInteger(rangoActual.montoMaximo)) {
+        return res.status(400).json({
+          ok: false,
+          reason: 'INVALID_RANGE_STEP',
+          message: 'Los montos mínimo y máximo deben ser números enteros.'
+        });
+      }
+
+      if (rangoActual.montoMinimo < 0 || rangoActual.montoMaximo < rangoActual.montoMinimo) {
+        return res.status(400).json({
+          ok: false,
+          reason: 'INVALID_RANGE_ORDER',
+          message: 'Cada rango debe tener mínimo mayor o igual a 0 y máximo mayor o igual al mínimo.'
+        });
+      }
+
+      if (rangoActual.porcentajeComision <= 0 || rangoActual.porcentajeComision > 100) {
+        return res.status(400).json({
+          ok: false,
+          reason: 'INVALID_PERCENTAGE',
+          message: 'El porcentaje de comisión debe ser mayor a 0 y menor o igual a 100.'
+        });
+      }
+    }
+
+    for (var j = 1; j < rangosNormalizados.length; j += 1) {
+      var previo = rangosNormalizados[j - 1];
+      var actual = rangosNormalizados[j];
+
+      if (actual.montoMinimo !== (previo.montoMaximo + 1)) {
+        return res.status(400).json({
+          ok: false,
+          reason: 'RANGE_GAP_OR_OVERLAP',
+          message: 'Los rangos no deben trasponerse ni tener huecos: el siguiente mínimo debe ser máximo anterior + 1.'
+        });
+      }
+    }
+
+    const tx = new database.sql.Transaction(pool);
+    await tx.begin();
+
+    try {
+      const desactivarRequest = new database.sql.Request(tx);
+      await desactivarRequest.query(`
+        UPDATE dbo.RANGO_COMISION_RETIRO
+        SET activo = 0
+        WHERE activo = 1;
+      `);
+
+      for (var k = 0; k < rangosNormalizados.length; k += 1) {
+        var rangoInsertar = rangosNormalizados[k];
+        const insertarRequest = new database.sql.Request(tx);
+
+        await insertarRequest
+          .input('montoMinimo', database.sql.Decimal(18, 2), rangoInsertar.montoMinimo)
+          .input('montoMaximo', database.sql.Decimal(18, 2), rangoInsertar.montoMaximo)
+          .input('porcentajeComision', database.sql.Decimal(5, 2), rangoInsertar.porcentajeComision)
+          .query(`
+            INSERT INTO dbo.RANGO_COMISION_RETIRO (
+              monto_minimo,
+              monto_maximo,
+              porcentaje_comision,
+              fecha_modificacion,
+              activo
+            )
+            VALUES (
+              @montoMinimo,
+              @montoMaximo,
+              @porcentajeComision,
+              SYSDATETIME(),
+              1
+            );
+          `);
+      }
+
+      await tx.commit();
+
+      return res.json({
+        ok: true,
+        message: 'Rangos de comisión guardados correctamente.'
+      });
+    } catch (error) {
+      await tx.rollback();
+      throw error;
+    }
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      reason: 'INTERNAL_ERROR',
+      message: 'Ocurrió un error guardando los rangos de comisión.'
+    });
+  }
+});
+
 router.post('/clientes/guardar-actualizar', async function (req, res) {
   try {
     const pool = await database.poolPromise;
