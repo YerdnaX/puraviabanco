@@ -38,16 +38,17 @@
         </tr>
       </thead>
       <tbody>
+        {{#each cuentasLista}}
         <tr>
-          <td>CR05 0123 0000 4567 8901</td>
-            <td>Ahorros casa</td>
-            <td>CRC</td>
-          <td>₡ 1 540 000</td>
-          <td>Laura Fernández</td>
-          <td>18/03/2026</td>
-          <td><span class="estado estado-libre">Activa</span></td>
+          <td>{{this.iban}}</td>
+          <td>{{this.aliasCuenta}}</td>
+          <td>{{this.moneda}}</td>
+          <td>{{this.saldoActual}}</td>
+          <td>{{this.clienteNombre}}</td>
+          <td>{{this.creadaTexto}}</td>
+          <td><span class="estado {{this.estadoClase}}">{{this.estado}}</span></td>
           <td>
-            <a class="btn btn-secundario btn-icon" href="/cuentas/transaccionescuenta?iban=CR050123000045678901" aria-label="Ver transacciones">
+            <a class="btn btn-secundario btn-icon" href="/cuentas/transaccionescuenta?iban={{this.ibanUrl}}" aria-label="Ver transacciones">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="11" cy="11" r="6"></circle>
                 <path d="M16 16l4 4"></path>
@@ -55,73 +56,21 @@
             </a>
           </td>
           <td>
-            <button class="btn btn-secundario btn-icon" type="button">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 7h16"></path>
-                <path d="M9 4h6"></path>
-                <path d="M10 10v7"></path>
-                <path d="M14 10v7"></path>
-                <rect x="5" y="7" width="14" height="13" rx="2"></rect>
-              </svg>
-            </button>
+            <form method="post" action="/api/cuentas/eliminar" style="display:inline;" data-eliminar="cuenta">
+              <input type="hidden" name="iban" value="{{this.ibanRaw}}">
+              <button class="btn btn-secundario btn-icon" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 7h16"></path>
+                  <path d="M9 4h6"></path>
+                  <path d="M10 10v7"></path>
+                  <path d="M14 10v7"></path>
+                  <rect x="5" y="7" width="14" height="13" rx="2"></rect>
+                </svg>
+              </button>
+            </form>
           </td>
         </tr>
-        <tr>
-          <td>CR23 9876 5432 1098 7654</td>
-          <td>Ahorro en USD</td>
-          <td>USD</td>
-          <td>$ 8 200</td>
-          <td>Wei Zhang</td>
-          <td>15/03/2026</td>
-          <td><span class="estado estado-reservada">Inactiva</span></td>
-          <td>
-            <a class="btn btn-secundario btn-icon" href="/cuentas/transaccionescuenta?iban=CR239876543210987654" aria-label="Ver transacciones">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="11" cy="11" r="6"></circle>
-                <path d="M16 16l4 4"></path>
-              </svg>
-            </a>
-          </td>
-          <td>
-            <button class="btn btn-secundario btn-icon" type="button">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 7h16"></path>
-                <path d="M9 4h6"></path>
-                <path d="M10 10v7"></path>
-                <path d="M14 10v7"></path>
-                <rect x="5" y="7" width="14" height="13" rx="2"></rect>
-              </svg>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>CR11 5500 1020 3040 5060</td>
-          <td>Cuenta viajes</td>
-          <td>CRC</td>
-          <td>₡ 280 000</td>
-          <td>Sofía Morales</td>
-          <td>10/03/2026</td>
-          <td><span class="estado estado-libre">Activa</span></td>
-          <td>
-            <a class="btn btn-secundario btn-icon" href="/cuentas/transaccionescuenta?iban=CR115500102030405060" aria-label="Ver transacciones">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="11" cy="11" r="6"></circle>
-                <path d="M16 16l4 4"></path>
-              </svg>
-            </a>
-          </td>
-          <td>
-            <button class="btn btn-secundario btn-icon" type="button">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 7h16"></path>
-                <path d="M9 4h6"></path>
-                <path d="M10 10v7"></path>
-                <path d="M14 10v7"></path>
-                <rect x="5" y="7" width="14" height="13" rx="2"></rect>
-              </svg>
-            </button>
-          </td>
-        </tr>
+        {{/each}}
       </tbody>
     </table>
     </div>
@@ -177,4 +126,5 @@
       </form>
     </section>
   </main>
+  <script src="/javascripts/cuentas-logica.js"></script>
 

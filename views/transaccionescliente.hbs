@@ -6,17 +6,17 @@
       <div class="kpi-grid" style="margin-bottom:1.2rem;">
         <div class="kpi">
           <div class="etiqueta">Cliente</div>
-          <div class="valor">Laura Fernández Rojas</div>
-          <div class="estado estado-libre">ID: 1-0456-1234</div>
+          <div class="valor">{{clienteNombre}}</div>
+          <div class="estado estado-libre">ID: {{clienteId}}</div>
         </div>
         <div class="kpi">
           <div class="etiqueta">Cuentas activas</div>
-          <div class="valor">3</div>
-          <div class="estado estado-libre">CRC  USD</div>
+          <div class="valor">{{cuentasActivas}}</div>
+          <div class="estado estado-libre">{{monedasActivasTexto}}</div>
         </div>
         <div class="kpi">
           <div class="etiqueta">Saldo agregado</div>
-          <div class="valor">₡ 2 120 000</div>
+          <div class="valor">{{saldoAgregadoTexto}}</div>
           <div class="estado estado-reservada">Incluye conversión de USD</div>
         </div>
       </div>
@@ -37,42 +37,20 @@
           </tr>
         </thead>
         <tbody>
+          {{#each transaccionesCliente}}
           <tr>
-            <td>TRX-87432</td>
-            <td>18/03/2026</td>
-            <td>Depósito</td>
-            <td>Nómina marzo</td>
-            <td>CR05 0123 0000 4567 8901</td>
-            <td>₡ 250 000</td>
-            <td>CRC</td>
-            <td>—</td>
-            <td>₡ 1 540 000</td>
-            <td>—</td>
+            <td>{{this.id}}</td>
+            <td>{{this.fecha}}</td>
+            <td>{{this.tipo}}</td>
+            <td>{{this.descripcion}}</td>
+            <td>{{this.cuenta}}</td>
+            <td>{{this.monto}}</td>
+            <td>{{this.moneda}}</td>
+            <td>{{this.tipoCambio}}</td>
+            <td>{{this.saldoFinal}}</td>
+            <td>{{this.referencia}}</td>
           </tr>
-          <tr>
-            <td>TRX-87433</td>
-            <td>17/03/2026</td>
-            <td>Retiro</td>
-            <td>Pago renta</td>
-            <td>CR05 0123 0000 4567 8901</td>
-            <td>₡ 120 000</td>
-            <td>CRC</td>
-            <td>—</td>
-            <td>₡ 1 290 000</td>
-            <td>COM-87433</td>
-          </tr>
-          <tr>
-            <td>COM-87433</td>
-            <td>17/03/2026</td>
-            <td>Comisión</td>
-            <td>3 % sobre retiro</td>
-            <td>CR05 0123 0000 4567 8901</td>
-            <td>₡ 3 600</td>
-            <td>CRC</td>
-            <td>—</td>
-            <td>₡ 1 286 400</td>
-            <td>Ref TRX-87433</td>
-          </tr>
+          {{/each}}
         </tbody>
       </table>
       <div class="botones" style="margin-top:1.2rem;">

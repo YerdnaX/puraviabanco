@@ -12,6 +12,7 @@ var cuentasRouter = require('./routes/cuentas');
 var transaccionesRouter = require('./routes/transacciones');
 var configuracionRouter = require('./routes/configuracion');
 var contactoRouter = require('./routes/contacto');
+var APIRouter = require('./routes/api');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use('/cuentas', cuentasRouter);
 app.use('/transacciones', transaccionesRouter); 
 app.use('/configuracion', configuracionRouter);
 app.use('/contacto', contactoRouter);
+app.use('/api', APIRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -40,18 +40,19 @@
             </tr>
           </thead>
           <tbody>
+            {{#each clientesLista}}
             <tr>
-              <td>1-0456-1234</td>
-              <td>Laura Fernández Rojas</td>
-              <td>laura.fernandez@bpv.cr</td>
-              <td class="nowrap">8888-1200</td>
-              <td>12/04/1992</td>
-              <td>Arquitecta</td>
-              <td>San José, Montes de Oca</td>
-              <td>18/03/26</td>
-              <td><span class="estado estado-libre">Activo</span></td>
+              <td>{{this.identificadorCliente}}</td>
+              <td>{{this.nombreCompleto}}</td>
+              <td>{{this.correoElectronico}}</td>
+              <td class="nowrap">{{this.telefono}}</td>
+              <td>{{this.fechaNacimientoTexto}}</td>
+              <td>{{this.ocupacion}}</td>
+              <td>{{this.direccion}}</td>
+              <td>{{this.creadoTexto}}</td>
+              <td><span class="estado {{this.estadoClase}}">{{this.estado}}</span></td>
               <td>
-                <a class="btn btn-secundario btn-icon" href="/clientes/transaccionescliente?id=1-0456-1234"
+                <a class="btn btn-secundario btn-icon" href="/clientes/transaccionescliente?id={{this.identificadorClienteUrl}}"
                   aria-label="Ver transacciones">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="11" cy="11" r="6"></circle>
@@ -60,79 +61,21 @@
                 </a>
               </td>
               <td>
-                <button class="btn btn-secundario btn-icon" type="button">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 7h16"></path>
-                    <path d="M9 4h6"></path>
-                    <path d="M10 10v7"></path>
-                    <path d="M14 10v7"></path>
-                    <rect x="5" y="7" width="14" height="13" rx="2"></rect>
-                  </svg>
-                </button>
+                <form method="post" action="/api/clientes/eliminar" style="display:inline;" data-eliminar="cliente">
+                  <input type="hidden" name="identificadorCliente" value="{{this.identificadorCliente}}">
+                  <button class="btn btn-secundario btn-icon" type="submit">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M4 7h16"></path>
+                      <path d="M9 4h6"></path>
+                      <path d="M10 10v7"></path>
+                      <path d="M14 10v7"></path>
+                      <rect x="5" y="7" width="14" height="13" rx="2"></rect>
+                    </svg>
+                  </button>
+                </form>
               </td>
             </tr>
-            <tr>
-              <td>800123456789</td>
-              <td>Wei Zhang</td>
-              <td>w.zhang@bpv.cr</td>
-              <td class="nowrap">7090-4433</td>
-              <td>05/09/1985</td>
-              <td>Profesor</td>
-              <td>Heredia, Santo Domingo</td>
-              <td>15/03/26</td>
-              <td><span class="estado estado-reservada">Inactivo</span></td>
-              <td>
-                <a class="btn btn-secundario btn-icon" href="/clientes/transaccionescliente?id=800123456789"
-                  aria-label="Ver transacciones">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="11" cy="11" r="6"></circle>
-                    <path d="M16 16l4 4"></path>
-                  </svg>
-                </a>
-              </td>
-              <td>
-                <button class="btn btn-secundario btn-icon" type="button">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 7h16"></path>
-                    <path d="M9 4h6"></path>
-                    <path d="M10 10v7"></path>
-                    <path d="M14 10v7"></path>
-                    <rect x="5" y="7" width="14" height="13" rx="2"></rect>
-                  </svg>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>P-99332211</td>
-              <td>Sofía Morales</td>
-              <td>sofia.m@bpv.cr</td>
-              <td class="nowrap">8630-2209</td>
-              <td>22/01/1998</td>
-              <td>Diseñadora UX</td>
-              <td>Cartago, Paraíso</td>
-              <td>10/03/26</td>
-              <td><span class="estado estado-libre">Activo</span></td>
-              <td>
-                <a class="btn btn-secundario btn-icon" href="/clientes/transaccionescliente?id=P-99332211"
-                  aria-label="Ver transacciones">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="11" cy="11" r="6"></circle>
-                    <path d="M16 16l4 4"></path>
-                  </svg>
-                </a>
-              </td>
-              <td>
-                <button class="btn btn-secundario btn-icon" type="button">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 7h16"></path>
-                    <path d="M9 4h6"></path>
-                    <path d="M10 10v7"></path>
-                    <path d="M14 10v7"></path>
-                    <rect x="5" y="7" width="14" height="13" rx="2"></rect>
-                  </svg>
-                </button>
-              </td>
-            </tr>
+            {{/each}}
           </tbody>
         </table>
       </div>
@@ -193,4 +136,5 @@
       </form>
     </section>
   </main>
+  <script src="/javascripts/clientes-logica.js"></script>
 
