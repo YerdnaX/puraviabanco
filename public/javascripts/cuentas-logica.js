@@ -1,4 +1,13 @@
 ﻿(function () {
+  function normalizarIBAN(valor) {
+    return String(valor || '').trim().toUpperCase().replace(/\s+/g, '');
+  }
+
+  function esIBANValido(iban) {
+    var formatoIBAN = /^[A-Z]{2}\d{2}[A-Z0-9]{10,30}$/;
+    return formatoIBAN.test(iban);
+  }
+
   function mostrarMensajeError(data) {
     if (data && data.reason === 'HAS_TRANSACTIONS') {
       alert('No se puede eliminar esta cuenta porque tiene transacciones.');
@@ -54,8 +63,10 @@
   }
 
   function leerFormularioCuenta() {
+    var ibanNormalizado = normalizarIBAN((document.getElementById('iban') || {}).value);
+
     return {
-      iban: (document.getElementById('iban') || {}).value,
+      iban: ibanNormalizado,
       aliasCuenta: (document.getElementById('alias') || {}).value,
       moneda: (document.getElementById('moneda') || {}).value,
       saldoActual: (document.getElementById('saldo') || {}).value,
@@ -86,6 +97,16 @@
 
     var boton = event.currentTarget;
     var payload = leerFormularioCuenta();
+
+    if (!esIBANValido(payload.iban)) {
+      alert('IBAN inválido. Debe tener formato: 2 letras de país, 2 dígitos de control y entre 10 y 30 caracteres alfanuméricos. Ejemplo: CR050123000045678901.');
+      return;
+    }
+
+    var inputIban = document.getElementById('iban');
+    if (inputIban) {
+      inputIban.value = payload.iban;
+    }
 
     if (boton) {
       boton.disabled = true;

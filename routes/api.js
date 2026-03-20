@@ -548,7 +548,7 @@ router.post('/cuentas/guardar-actualizar', async function (req, res) {
       return res.status(409).json({
         ok: false,
         reason: 'OWNER_AMBIGUOUS',
-        message: 'El cliente propietario es ambiguo. Ingrese el identificador del cliente.'
+        message: 'Ingrese el identificador del cliente correcto para continuar.'
       });
     }
 
