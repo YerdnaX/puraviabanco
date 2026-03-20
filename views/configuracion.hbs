@@ -9,27 +9,27 @@
       <div class="kpi-grid" style="margin-bottom:1.2rem;">
         <div class="kpi">
           <div class="etiqueta">Tipo de cambio</div>
-          <div class="valor">₡522 / ₡534</div>
-          <div class="estado estado-reservada">Actualizado: 18/03/2026</div>
+          <div class="valor">{{tipoCambioTexto}}</div>
+          <div class="estado estado-reservada">{{tipoCambioActualizadoTexto}}</div>
         </div>
         <div class="kpi kpi-rangos">
           <div class="etiqueta">Rangos de comisión</div>
           <ul class="kpi-rangos-lista" aria-label="Resumen de rangos de comisión">
-            <li class="kpi-rango-item">
-              <span class="rango-nombre">Rango 1</span>
-              <span class="rango-monto">₡ 0 - ₡ 100 000</span>
-              <span class="estado estado-libre">1.5 %</span>
-            </li>
-            <li class="kpi-rango-item">
-              <span class="rango-nombre">Rango 2</span>
-              <span class="rango-monto">₡ 100 001 - ₡ 500 000</span>
-              <span class="estado estado-libre">3 %</span>
-            </li>
-            <li class="kpi-rango-item">
-              <span class="rango-nombre">Rango 3</span>
-              <span class="rango-monto">₡ 500 001 - ₡ 2 000 000</span>
-              <span class="estado estado-libre">4.5 %</span>
-            </li>
+            {{#if rangosComision}}
+              {{#each rangosComision}}
+                <li class="kpi-rango-item">
+                  <span class="rango-nombre">{{this.nombre}}</span>
+                  <span class="rango-monto">{{this.montoTexto}}</span>
+                  <span class="estado estado-libre">{{this.porcentajeTexto}}</span>
+                </li>
+              {{/each}}
+            {{else}}
+              <li class="kpi-rango-item">
+                <span class="rango-nombre">Sin rangos activos</span>
+                <span class="rango-monto">N/D</span>
+                <span class="estado estado-reservada">0 %</span>
+              </li>
+            {{/if}}
           </ul>
         </div>
       </div>
@@ -50,4 +50,3 @@
       </div>
     </section>
   </main>
-
