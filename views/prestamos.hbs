@@ -1,0 +1,116 @@
+<main class="contenedor">
+    <section class="seccion">
+        <h1 class="titulo-seccion">Solicitud de préstamos</h1>
+        <div class="kpi-grid">
+            <div class="kpi">
+                <div class="etiqueta">Clientes activos</div>
+                <div class="valor">{{clientesActivos}}</div>
+                <div class="estado estado-libre">Con estado Activo</div>
+            </div>
+            <div class="kpi">
+                <div class="etiqueta">Préstamos solicitados</div>
+                <div class="valor">{{prestamosSolicitados}}</div>
+                <div class="estado estado-reservada">Sin operaciones permitidas</div>
+            </div>
+            <div class="kpi">
+                <div class="etiqueta">Monto total prestado</div>
+                <div class="valor">{{montoTotalPrestado}}</div>
+                <div class="estado estado-libre">{{ultimaAltaHora}}</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion">
+        <h2 class="titulo-seccion">Lista de préstamos solicitados</h2>
+        <div class="tabla-center">
+            <table class="tabla-resumen">
+                <thead>
+                    <tr>
+                        <th>Numero de solicitud</th>
+                        <th>Identificador de cliente</th>
+                        <th>Nombre Cliente</th>
+                        <th>Monto</th>
+                        <th>Meses Plazo</th>
+                        <th>Calculo cuota mensual</th>
+                        <th>Fecha de solicitud</th>
+                        <th>Acciones</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each clientesLista}}
+                    <tr>
+                        <td>{{this.identificadorCliente}}</td>
+                        <td>{{this.nombreCompleto}}</td>
+                        <td>{{this.correoElectronico}}</td>
+                        <td class="nowrap">{{this.telefono}}</td>
+                        <td>{{this.fechaNacimientoTexto}}</td>
+                        <td>{{this.ocupacion}}</td>
+                        <td>{{this.direccion}}</td>
+                        <td>{{this.creadoTexto}}</td>
+                        <td><span class="estado {{this.estadoClase}}">{{this.estado}}</span></td>
+                        <td>
+                            <a class="btn btn-secundario btn-icon"
+                                href="/clientes/transaccionescliente?id={{this.identificadorClienteUrl}}"
+                                aria-label="Ver transacciones">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="11" cy="11" r="6"></circle>
+                                    <path d="M16 16l4 4"></path>
+                                </svg>
+                            </a>
+                        </td>
+                        <td>
+                            <form method="post" action="/api/clientes/eliminar" style="display:inline;"
+                                data-eliminar="cliente">
+                                <input type="hidden" name="identificadorCliente" value="{{this.identificadorCliente}}">
+                                <button class="btn btn-secundario btn-icon" type="submit">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M4 7h16"></path>
+                                        <path d="M9 4h6"></path>
+                                        <path d="M10 10v7"></path>
+                                        <path d="M14 10v7"></path>
+                                        <rect x="5" y="7" width="14" height="13" rx="2"></rect>
+                                    </svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="seccion">
+        <h2 class="titulo-seccion">Crear Prestamos</h2>
+        <form class="formulario">
+            <div class="grid-formularios">
+                <div class="campo">
+                    <label for="id-cliente">Identificador de solicitante(cédula, extranjero o pasaporte)</label>
+                    <input id="id-cliente" type="text" placeholder="Ej. 1-0456-1234 / P-99332211">
+                </div>
+            </div>
+            <div class="grid-formularios">
+                <div class="campo">
+                    <label for="monto">Monto total a solicitar en colones</label>
+                    <input id="monto" type="text" placeholder="Ej. 1,000,000">
+                </div>
+            </div>
+            <div class="campo">
+                <label for="plazomeses">Plazo Meses</label>
+                <select id="plazomeses">
+                    <option>4 Meses</option>
+                    <option>6 Meses</option>
+                    <option>9 Meses</option>
+                    <option>12 Meses</option>
+                </select>
+            </div>
+
+            <div class="botones">
+                <button class="btn" id="btn-solicitarprestamo" type="button">Solicitar Prestamo</button>
+                <button class="btn btn-secundario" type="reset">Limpiar</button>
+            </div>
+        </form>
+    </section>
+</main>
+<script src="/javascripts/prestamos-logica.js"></script>

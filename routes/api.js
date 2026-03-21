@@ -438,7 +438,8 @@ router.post('/clientes/eliminar', async function (req, res) {
       .query(`
         SELECT
           (SELECT COUNT(*) FROM dbo.CLIENTE WHERE identificador_cliente = @identificadorCliente) AS existeCliente,
-          (SELECT COUNT(*) FROM dbo.TRANSACCION WHERE identificador_cliente = @identificadorCliente) AS totalTransacciones;
+          (SELECT COUNT(*) FROM dbo.TRANSACCION WHERE identificador_cliente = @identificadorCliente) AS totalTransacciones,
+          (SELECT COUNT(*) FROM dbo.SOLICITUD_PRESTAMO WHERE identificador_cliente = @identificadorCliente) AS totalSolicitudesPrestamo;
       `);
 
     const validacion = validacionResult.recordset[0] || {};
@@ -456,6 +457,14 @@ router.post('/clientes/eliminar', async function (req, res) {
         ok: false,
         reason: 'HAS_TRANSACTIONS',
         message: 'No se puede eliminar este cliente porque tiene transacciones.'
+      });
+    }
+
+    if (Number(validacion.totalSolicitudesPrestamo || 0) > 0) {
+      return res.status(409).json({
+        ok: false,
+        reason: 'HAS_LOAN_REQUESTS',
+        message: 'No se puede eliminar este cliente porque tiene solicitudes de préstamo.'
       });
     }
 

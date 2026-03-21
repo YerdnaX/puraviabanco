@@ -1,7 +1,7 @@
-﻿<main class="contenedor">
+<main class="contenedor">
     <section class="seccion">
-      <h1 class="titulo-seccion">Transacciones del cliente</h1>
-      <p class="subtitulo">Consulta depósitos, retiros y comisiones asociados al cliente seleccionado.</p>
+      <h1 class="titulo-seccion">Perfil del cliente</h1>
+      <p class="subtitulo">Consulta transacciones, solicitudes de prestamo y desglose de cuotas del cliente seleccionado.</p>
 
       <div class="kpi-grid" style="margin-bottom:1.2rem;">
         <div class="kpi">
@@ -17,17 +17,76 @@
         <div class="kpi">
           <div class="etiqueta">Saldo agregado</div>
           <div class="valor">{{saldoAgregadoTexto}}</div>
-          <div class="estado estado-reservada">Incluye conversión de USD</div>
+          <div class="estado estado-reservada">Incluye conversion de USD</div>
         </div>
       </div>
 
+      <h2 class="titulo-seccion" style="margin-bottom:0.8rem;">Solicitudes de prestamo</h2>
+      <table class="tabla-resumen" style="margin-bottom:1.2rem;">
+        <thead>
+          <tr>
+            <th>Numero solicitud</th>
+            <th>Fecha</th>
+            <th>Monto solicitado</th>
+            <th>Plazo</th>
+            <th>Cuota mensual</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each solicitudesPrestamo}}
+          <tr>
+            <td>{{this.numeroSolicitud}}</td>
+            <td>{{this.fechaSolicitud}}</td>
+            <td>{{this.montoPrestamo}}</td>
+            <td>{{this.plazoMeses}}</td>
+            <td>{{this.cuotaMensual}}</td>
+            <td>{{this.estado}}</td>
+          </tr>
+          {{else}}
+          <tr>
+            <td colspan="6">Este cliente no tiene solicitudes de prestamo registradas.</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+      <h2 class="titulo-seccion" style="margin-bottom:0.8rem;">Desglose de cuotas</h2>
+      <table class="tabla-resumen" style="margin-bottom:1.2rem;">
+        <thead>
+          <tr>
+            <th>Numero solicitud</th>
+            <th>Cuota #</th>
+            <th>Fecha estimada</th>
+            <th>Monto cuota</th>
+            <th>Saldo estimado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each cuotasPrestamo}}
+          <tr>
+            <td>{{this.numeroSolicitud}}</td>
+            <td>{{this.numeroCuota}}</td>
+            <td>{{this.fechaCuota}}</td>
+            <td>{{this.montoCuota}}</td>
+            <td>{{this.saldoEstimado}}</td>
+          </tr>
+          {{else}}
+          <tr>
+            <td colspan="5">No hay cuotas para mostrar porque no existen solicitudes de prestamo.</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+      <h2 class="titulo-seccion" style="margin-bottom:0.8rem;">Transacciones del cliente</h2>
       <table class="tabla-resumen">
         <thead>
           <tr>
             <th>ID</th>
             <th>Fecha</th>
             <th>Tipo</th>
-            <th>Descripción</th>
+            <th>Descripcion</th>
             <th>Cuenta</th>
             <th>Monto</th>
             <th>Moneda</th>
@@ -50,6 +109,10 @@
             <td>{{this.saldoFinal}}</td>
             <td>{{this.referencia}}</td>
           </tr>
+          {{else}}
+          <tr>
+            <td colspan="10">Este cliente no tiene transacciones registradas.</td>
+          </tr>
           {{/each}}
         </tbody>
       </table>
@@ -58,4 +121,3 @@
       </div>
     </section>
   </main>
-

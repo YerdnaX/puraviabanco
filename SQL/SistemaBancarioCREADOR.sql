@@ -28,6 +28,15 @@ GO
 IF OBJECT_ID(N'dbo.CUENTA_BANCARIA', N'U') IS NOT NULL
     DROP TABLE dbo.CUENTA_BANCARIA;
 GO
+IF OBJECT_ID(N'dbo.V_DESGLOSE_CUOTAS_PRESTAMO', N'V') IS NOT NULL
+    DROP VIEW dbo.V_DESGLOSE_CUOTAS_PRESTAMO;
+GO
+IF OBJECT_ID(N'dbo.V_SOLICITUD_PRESTAMO_CLIENTE', N'V') IS NOT NULL
+    DROP VIEW dbo.V_SOLICITUD_PRESTAMO_CLIENTE;
+GO
+IF OBJECT_ID(N'dbo.SOLICITUD_PRESTAMO', N'U') IS NOT NULL
+    DROP TABLE dbo.SOLICITUD_PRESTAMO;
+GO
 IF OBJECT_ID(N'dbo.CLIENTE', N'U') IS NOT NULL
     DROP TABLE dbo.CLIENTE;
 GO
@@ -222,6 +231,77 @@ CREATE TABLE dbo.CONTACTO_SOPORTE (
     CONSTRAINT CK_CONTACTO_ESTADO CHECK (estado IN ('Pendiente', 'Atendido'))
 );
 GO
+/* ==========================================================
+   TABLA: Solicitud de prestamo
+   ========================================================== */
+CREATE TABLE dbo.SOLICITUD_PRESTAMO (
+    numero_solicitud INT IDENTITY(1,1) NOT NULL,
+    fecha_solicitud DATETIME2(0) NOT NULL
+        CONSTRAINT DF_SOLICITUD_PRESTAMO_FECHA DEFAULT SYSDATETIME(),
+    identificador_cliente VARCHAR(20) NOT NULL,
+    monto_prestamo DECIMAL(18,2) NOT NULL,
+    plazo_meses TINYINT NOT NULL,
+    cuota_mensual AS CAST(
+        ROUND(
+            monto_prestamo / NULLIF(CAST(plazo_meses AS DECIMAL(18,2)), 0),
+            2
+        ) AS DECIMAL(18,2)
+    ) PERSISTED,
+    estado VARCHAR(10) NOT NULL
+        CONSTRAINT DF_SOLICITUD_PRESTAMO_ESTADO DEFAULT ('Pendiente'),
+    CONSTRAINT PK_SOLICITUD_PRESTAMO PRIMARY KEY (numero_solicitud),
+    CONSTRAINT FK_SOLICITUD_PRESTAMO_CLIENTE
+        FOREIGN KEY (identificador_cliente)
+        REFERENCES dbo.CLIENTE (identificador_cliente),
+    CONSTRAINT CK_SOLICITUD_PRESTAMO_MONTO CHECK (monto_prestamo > 0),
+    CONSTRAINT CK_SOLICITUD_PRESTAMO_PLAZO CHECK (plazo_meses IN (4, 6, 9, 12)),
+    CONSTRAINT CK_SOLICITUD_PRESTAMO_ESTADO CHECK (estado IN ('Pendiente', 'Aprobada', 'Rechazada'))
+);
+GO
+
+CREATE INDEX IX_SOLICITUD_PRESTAMO_CLIENTE_FECHA
+    ON dbo.SOLICITUD_PRESTAMO (identificador_cliente, fecha_solicitud DESC);
+GO
+
+CREATE VIEW dbo.V_SOLICITUD_PRESTAMO_CLIENTE AS
+SELECT
+    sp.numero_solicitud,
+    sp.fecha_solicitud,
+    sp.identificador_cliente,
+    c.nombre_completo,
+    sp.monto_prestamo,
+    sp.plazo_meses,
+    sp.cuota_mensual,
+    sp.estado
+FROM dbo.SOLICITUD_PRESTAMO sp
+INNER JOIN dbo.CLIENTE c
+    ON c.identificador_cliente = sp.identificador_cliente;
+GO
+
+CREATE VIEW dbo.V_DESGLOSE_CUOTAS_PRESTAMO AS
+SELECT
+    sp.numero_solicitud,
+    sp.identificador_cliente,
+    c.nombre_completo,
+    cuotas.numero_cuota,
+    DATEADD(MONTH, cuotas.numero_cuota, CAST(sp.fecha_solicitud AS DATE)) AS fecha_cuota,
+    sp.cuota_mensual AS monto_cuota,
+    CAST(
+        CASE
+            WHEN sp.monto_prestamo - (sp.cuota_mensual * cuotas.numero_cuota) < 0 THEN 0
+            ELSE ROUND(sp.monto_prestamo - (sp.cuota_mensual * cuotas.numero_cuota), 2)
+        END
+        AS DECIMAL(18,2)
+    ) AS saldo_estimado
+FROM dbo.SOLICITUD_PRESTAMO sp
+INNER JOIN dbo.CLIENTE c
+    ON c.identificador_cliente = sp.identificador_cliente
+CROSS APPLY (
+    VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12)
+) AS cuotas(numero_cuota)
+WHERE cuotas.numero_cuota <= sp.plazo_meses;
+GO
+
 
 /* ==========================================================
    Datos iniciales y datos de prueba
@@ -244,6 +324,22 @@ BEGIN
         ('800123456789', N'Wei Zhang', N'w.zhang@bpv.cr', '7090-4433', '1985-09-05', N'Profesor', N'Heredia, Santo Domingo', '2026-03-15T09:00:00', 'Inactivo'),
         ('P-99332211', N'Sofia Morales', N'sofia.m@bpv.cr', '8630-2209', '1998-01-22', N'Disenadora UX', N'Cartago, Paraiso', '2026-03-10T14:20:00', 'Activo'),
         ('2-1234-5678', N'Carlos Mendez Soto', N'carlos.mendez@bpv.cr', '8777-9080', '1990-11-30', N'Contador', N'Alajuela, Grecia', '2026-03-12T11:10:00', 'Activo');
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.SOLICITUD_PRESTAMO)
+BEGIN
+    INSERT INTO dbo.SOLICITUD_PRESTAMO (
+        fecha_solicitud,
+        identificador_cliente,
+        monto_prestamo,
+        plazo_meses,
+        estado
+    )
+    VALUES
+        ('2026-03-19T10:00:00', '1-0456-1234', 1200000.00, 12, 'Aprobada'),
+        ('2026-03-20T14:10:00', 'P-99332211', 540000.00, 6, 'Pendiente'),
+        ('2026-03-18T09:20:00', '2-1234-5678', 360000.00, 4, 'Rechazada');
 END;
 GO
 

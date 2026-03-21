@@ -169,13 +169,15 @@ router.get('/transaccionescliente', async function (req, res, next) {
 
     if (!identificadorCliente) {
       return res.render('transaccionescliente', {
-        title: 'Transacciones Cliente',
+        title: 'Perfil Cliente',
         clienteNombre: 'N/D',
         clienteId: 'N/D',
         cuentasActivas: '0',
         monedasActivasTexto: 'N/D',
         saldoAgregadoTexto: '₡ 0',
-        transaccionesCliente: []
+        transaccionesCliente: [],
+        solicitudesPrestamo: [],
+        cuotasPrestamo: []
       });
     }
 
@@ -194,13 +196,15 @@ router.get('/transaccionescliente', async function (req, res, next) {
 
     if (!cliente) {
       return res.render('transaccionescliente', {
-        title: 'Transacciones Cliente',
+        title: 'Perfil Cliente',
         clienteNombre: 'N/D',
         clienteId: 'N/D',
         cuentasActivas: '0',
         monedasActivasTexto: 'N/D',
         saldoAgregadoTexto: '₡ 0',
-        transaccionesCliente: []
+        transaccionesCliente: [],
+        solicitudesPrestamo: [],
+        cuotasPrestamo: []
       });
     }
 
@@ -265,6 +269,37 @@ router.get('/transaccionescliente', async function (req, res, next) {
         ORDER BY t.fecha_transaccion DESC, t.codigo_transaccion DESC;
       `);
 
+    const solicitudesPrestamoResult = await pool
+      .request()
+      .input('identificadorCliente', database.sql.VarChar(20), cliente.identificador_cliente)
+      .query(`
+        SELECT
+          numero_solicitud,
+          fecha_solicitud,
+          monto_prestamo,
+          plazo_meses,
+          cuota_mensual,
+          estado
+        FROM dbo.V_SOLICITUD_PRESTAMO_CLIENTE
+        WHERE identificador_cliente = @identificadorCliente
+        ORDER BY fecha_solicitud DESC, numero_solicitud DESC;
+      `);
+
+    const cuotasPrestamoResult = await pool
+      .request()
+      .input('identificadorCliente', database.sql.VarChar(20), cliente.identificador_cliente)
+      .query(`
+        SELECT
+          numero_solicitud,
+          numero_cuota,
+          fecha_cuota,
+          monto_cuota,
+          saldo_estimado
+        FROM dbo.V_DESGLOSE_CUOTAS_PRESTAMO
+        WHERE identificador_cliente = @identificadorCliente
+        ORDER BY numero_solicitud DESC, numero_cuota ASC;
+      `);
+
     const transaccionesCliente = (transaccionesResult.recordset || []).map(transaccion => ({
       id: transaccion.codigo_transaccion,
       fecha: transaccion.fecha_transaccion ? formatearFecha(new Date(transaccion.fecha_transaccion), false) : 'N/D',
@@ -278,14 +313,33 @@ router.get('/transaccionescliente', async function (req, res, next) {
       referencia: formatearReferencia(transaccion.codigo_referencia, transaccion.codigo_comision_relacionada)
     }));
 
+    const solicitudesPrestamo = (solicitudesPrestamoResult.recordset || []).map(solicitud => ({
+      numeroSolicitud: solicitud.numero_solicitud,
+      fechaSolicitud: solicitud.fecha_solicitud ? formatearFecha(new Date(solicitud.fecha_solicitud), false) : 'N/D',
+      montoPrestamo: formatearMonto(solicitud.monto_prestamo, 'CRC'),
+      plazoMeses: String(solicitud.plazo_meses || '0') + ' meses',
+      cuotaMensual: formatearMonto(solicitud.cuota_mensual, 'CRC'),
+      estado: solicitud.estado
+    }));
+
+    const cuotasPrestamo = (cuotasPrestamoResult.recordset || []).map(cuota => ({
+      numeroSolicitud: cuota.numero_solicitud,
+      numeroCuota: cuota.numero_cuota,
+      fechaCuota: cuota.fecha_cuota ? formatearFechaSoloDia(new Date(cuota.fecha_cuota)) : 'N/D',
+      montoCuota: formatearMonto(cuota.monto_cuota, 'CRC'),
+      saldoEstimado: formatearMonto(cuota.saldo_estimado, 'CRC')
+    }));
+
     res.render('transaccionescliente', {
-      title: 'Transacciones Cliente',
+      title: 'Perfil Cliente',
       clienteNombre: cliente.nombre_completo,
       clienteId: cliente.identificador_cliente,
       cuentasActivas: formatearEntero(cuentasActivasRows.length),
       monedasActivasTexto: monedasActivas.length ? monedasActivas.join('  ') : 'N/D',
       saldoAgregadoTexto: formatearMonto(saldoAgregadoCRC, 'CRC'),
-      transaccionesCliente
+      transaccionesCliente,
+      solicitudesPrestamo,
+      cuotasPrestamo
     });
   } catch (error) {
     next(error);
@@ -293,4 +347,3 @@ router.get('/transaccionescliente', async function (req, res, next) {
 });
 
 module.exports = router;
-
