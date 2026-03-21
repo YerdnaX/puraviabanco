@@ -1294,4 +1294,110 @@ router.post('/transacciones/retiro', async function (req, res) {
   }
 });
 
+router.post('/prestamos/solicitar', async function (req, res) {
+  try {
+    const pool = await database.poolPromise;
+    const identificadorCliente = normalizarTexto(req.body.identificadorCliente).toUpperCase();
+    const montoPrestamoTexto = normalizarTexto(req.body.montoPrestamo).replace(/,/g, '');
+    const plazoMesesTexto = normalizarTexto(req.body.plazoMeses);
+
+    if (!identificadorCliente || !montoPrestamoTexto || !plazoMesesTexto) {
+      return res.status(400).json({
+        ok: false,
+        reason: 'CAMPOS_OBLIGATORIOS',
+        message: 'Identificador de cliente, monto y plazo son obligatorios.'
+      });
+    }
+
+    const montoPrestamo = Number(montoPrestamoTexto);
+    const plazoMeses = Number(plazoMesesTexto);
+
+    if (!Number.isFinite(montoPrestamo) || montoPrestamo <= 0) {
+      return res.status(400).json({
+        ok: false,
+        reason: 'MONTO_INVALIDO',
+        message: 'El monto del préstamo debe ser un número mayor a cero.'
+      });
+    }
+
+    if (!Number.isInteger(plazoMeses) || ![4, 6, 9, 12].includes(plazoMeses)) {
+      return res.status(400).json({
+        ok: false,
+        reason: 'PLAZO_INVALIDO',
+        message: 'El plazo del préstamo debe ser 4, 6, 9 o 12 meses.'
+      });
+    }
+
+    const clienteResult = await pool
+      .request()
+      .input('identificadorCliente', database.sql.VarChar(20), identificadorCliente)
+      .query(`
+        SELECT TOP 1
+          identificador_cliente,
+          nombre_completo
+        FROM dbo.CLIENTE
+        WHERE identificador_cliente = @identificadorCliente;
+      `);
+
+    const cliente = clienteResult.recordset[0] || null;
+
+    if (!cliente) {
+      return res.status(404).json({
+        ok: false,
+        reason: 'CLIENTE_NO_ENCONTRADO',
+        message: 'El identificador de cliente no existe.'
+      });
+    }
+
+    const solicitudResult = await pool
+      .request()
+      .input('identificadorCliente', database.sql.VarChar(20), cliente.identificador_cliente)
+      .input('montoPrestamo', database.sql.Decimal(18, 2), montoPrestamo)
+      .input('plazoMeses', database.sql.TinyInt, plazoMeses)
+      .query(`
+        INSERT INTO dbo.SOLICITUD_PRESTAMO (
+          identificador_cliente,
+          monto_prestamo,
+          plazo_meses
+        )
+        OUTPUT
+          INSERTED.numero_solicitud,
+          INSERTED.fecha_solicitud,
+          INSERTED.identificador_cliente,
+          INSERTED.monto_prestamo,
+          INSERTED.plazo_meses,
+          INSERTED.cuota_mensual,
+          INSERTED.estado
+        VALUES (
+          @identificadorCliente,
+          @montoPrestamo,
+          @plazoMeses
+        );
+      `);
+
+    const solicitud = solicitudResult.recordset[0] || {};
+
+    return res.json({
+      ok: true,
+      message: 'Solicitud de préstamo registrada correctamente.',
+      data: {
+        numeroSolicitud: solicitud.numero_solicitud,
+        fechaSolicitud: solicitud.fecha_solicitud,
+        identificadorCliente: solicitud.identificador_cliente,
+        nombreCliente: cliente.nombre_completo,
+        montoPrestamo: solicitud.monto_prestamo,
+        plazoMeses: solicitud.plazo_meses,
+        cuotaMensual: solicitud.cuota_mensual,
+        estado: solicitud.estado
+      }
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      reason: 'INTERNAL_ERROR',
+      message: 'Ocurrió un error registrando la solicitud de préstamo.'
+    });
+  }
+});
+
 module.exports = router;
